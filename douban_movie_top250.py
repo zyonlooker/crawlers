@@ -1,5 +1,6 @@
 import csv
 import requests
+import multiprocessing
 
 from lxml import etree
 
@@ -81,6 +82,15 @@ def save_to_csv(page, results):
                 writer = csv.writer(csvfile, delimiter=',')
                 writer.writerow(list(result)) 
 
+'''
 if __name__ == '__main__':
     for i in range(10):
         main(i)
+'''
+
+if __name__ == '__main__':
+    pages = [_ for _ in range(10)]
+    pool = multiprocessing.Pool(multiprocessing.cpu_count())
+    pool.map(main, pages)
+    pool.close()
+    pool.join
